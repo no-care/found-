@@ -1,0 +1,4 @@
+{
+  "ConnectionStrings": { "DefaultConnection": "Server=PC\\SQLEXPRESS02;Database=foundDB1;Trusted_Connection=True;MultipleActiveResultSets=true" }
+}
+
