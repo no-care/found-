@@ -1,0 +1,34 @@
+﻿@{
+    foreach (var advert in Model.GetCurrAdvrt)
+    {
+    <div class="container mt-5">
+        <main role="main" class="pb-3 mt-2">
+            <h1 class="text-blue mt-2">Объявление № @advert.id</h1>
+            <hr>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <img class="img-fluid currAdv-Img" src="@advert.img" alt="@advert.desc_short"/>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <section>
+                        <div class="row">
+                            <div class="col-md-5 margin-left-20px">
+                                <h4>@advert.desc_short</h4>
+                                <p>Место находки: @advert.location</p>
+                                <p>Время находки: @advert.time</p>
+                                <p>Описание: @advert.desc_long</p>
+                                <p>Автор: @advert.Users.login</p>
+                                <p><a class="btn btn-outline-primary background-blue text-white corner-radius-15px" 
+                                      asp-controller="Messages" asp-action="AddDialog" asp-route-AnotherUserid="@advert.Usersid">Ответить</a></p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            </main>
+        </div>
+    }
+}

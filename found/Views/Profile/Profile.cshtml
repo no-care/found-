@@ -1,0 +1,120 @@
+﻿@using found.ViewModels
+@using Microsoft.AspNetCore.Http;
+@model ProfileVM
+@inject IHttpContextAccessor HttpContextAccessor
+
+<div class="container mt-5">
+    <main role="main" class="pb-3">
+        <h1 class="text-blue">Профиль</h1>
+        @if (@HttpContextAccessor.HttpContext.Session.GetInt32("roleid") == 1)
+        {
+            {
+                var UserDATA = Model.GetObjUser;
+    <div class="row">
+        <div class="col-md-3">
+            <form method="post" asp-controller="Profile" asp-action="Profile">
+                <h4 class="text-blue">Мои данные</h4>
+                <hr>
+
+                <div class="form-group">
+                    <label>Логин</label>
+                    <input value="@UserDATA.login" name="newLog" id="login" readonly="readonly" class="form-control corner-radius-5px input-padding">
+                    <span class="text-danger field-validation-valid" data-valmsg-for="Input.Email" data-valmsg-replace="true"></span>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input value="@UserDATA.mail" name="newMail" id="mail" readonly="readonly" class="form-control corner-radius-5px input-padding" type="email">
+                    <span class="text-danger field-validation-valid"></span>
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input name="newPass" value="@UserDATA.password" id="password" readonly="readonly" class="form-control corner-radius-5px input-padding">
+                    <span class="text-danger field-validation-valid"></span>
+                </div>
+                <input id="edit" class="btn btn-outline-primary background-blue text-white corner-radius-15px mt-4" type="button" value="Редактировать" onclick="RemoveRO();">
+                <input id="Confirm" class="btn btn-success corner-radius-15p mt-4" style="display:none" type="submit" value="Редактировать">
+
+            </form>
+        </div>
+
+        <div class="col-md-9">
+            <section>
+                <h4>Мои объявления</h4>
+                <hr>
+                <div class="row text-center">
+                    @foreach (var UserAdverts in Model.GetUsersAdverts)
+                    {
+                        <div class="col-md-4">
+                            <img class="img-fluid img-profile" src="@UserAdverts.img" alt="@UserAdverts.desc_short" />
+                            <h2>@UserAdverts.desc_short</h2>
+                            <p>Найдено в: @UserAdverts.location в @UserAdverts.time</p>
+                            @if (UserAdverts.isApprove == true)
+                            {
+                                if (UserAdverts.isActive == true)
+                                {
+                                    <p>Cтатус: Активное</p>
+                                }
+                                else
+                                {
+                                    <p>Cтатус: Не активное</p>
+                                }
+                                <p><a class="btn btn-outline-primary background-blue text-white corner-radius-15px" asp-controller="Profile" asp-action="AdvertUpdate" asp-route-Id="@UserAdverts.id">Редактировать</a></p>
+                            }
+                            else
+                            {
+                                <p>Cтатус: На рассмотрении</p>
+                            }
+                        </div>
+                    }
+                </div>
+            </section>
+        </div>
+
+
+    </div>
+            }
+
+
+            <script>
+                function RemoveRO() {
+                    document.getElementById('login').removeAttribute('readonly');
+                    document.getElementById('mail').removeAttribute('readonly');
+                    document.getElementById('password').removeAttribute('readonly');
+                    document.getElementById('Confirm').style.display = "block";
+                    document.getElementById('edit').style.display = "none";
+                }
+            </script>
+        }
+        else
+        {
+            {
+                var UserDATA = Model.GetObjUser;
+                <div class="row">
+                    <div class="col-md-3"> 
+                            <h4 class="text-blue">Мои данные</h4>
+                            <hr>
+                            <div class="form-group">
+                                <label>Логин</label>
+                                <input value="@UserDATA.login" name="newLog" id="login" readonly="readonly" class="form-control corner-radius-5px input-padding">
+                                <span class="text-danger field-validation-valid" data-valmsg-for="Input.Email" data-valmsg-replace="true"></span>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input value="@UserDATA.mail" name="newMail" id="mail" readonly="readonly" class="form-control corner-radius-5px input-padding" type="email">
+                                <span class="text-danger field-validation-valid"></span>
+                            </div>
+                            <div class="form-group">
+                                <label>Пароль</label>
+                                <input name="newPass" value="@UserDATA.password" id="password" readonly="readonly" class="form-control corner-radius-5px input-padding">
+                                <span class="text-danger field-validation-valid"></span>
+                            </div>
+                    </div>
+                </div>
+            }
+        }
+
+    </main>
+</div>
+
+                
+            

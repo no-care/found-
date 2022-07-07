@@ -1,0 +1,47 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+<ul class="navbar-nav">
+    @if (@HttpContextAccessor.HttpContext.Session.GetInt32("roleid") == null)
+    {
+        <li class="nav-item">
+            <a class="nav-link active" asp-controller="Users" asp-action="Register">Регистрация</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" asp-controller="Users" asp-action="Login">Вход</a>
+        </li>
+    }
+    else if (@HttpContextAccessor.HttpContext.Session.GetInt32("roleid") == 1)
+    {
+        <li class="nav-item dropdown margin-right-20">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDarkDropdownMenuLink"
+               role="button" data-bs-toggle="dropdown" aria-expanded="false">Меню</a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                <li class="nav-item">
+                    <a class="nav-link active" asp-controller="Profile" asp-action="Profile">Профиль</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" asp-area="" asp-controller="Messages" asp-action="Dialogs">Диалоги</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" asp-controller="Users" asp-action="LogOut">Выход</a>
+                </li>
+            </ul>
+        </li>
+
+    }
+    else
+    {
+        <li class="nav-item dropdown margin-right-20">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDarkDropdownMenuLink"
+               role="button" data-bs-toggle="dropdown" aria-expanded="false">Меню</a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                <li class="nav-item">
+                    <a class="nav-link active" asp-controller="Profile" asp-action="Profile">Профиль</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" asp-controller="Users" asp-action="LogOut">Выход</a>
+                </li>
+                </ul>
+        </li>
+    }
+     </ul>

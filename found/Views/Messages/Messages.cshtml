@@ -1,0 +1,69 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using found.Data.Models
+@inject IHttpContextAccessor HttpContextAccessor
+@model DialogsVM
+@{ var dialog = Model.GetCurrDialog;
+
+        <div class="container mt-5 mb-4">
+                    <form asp-controller="Messages" asp-action="Messages" method="post" enctype="multipart/form-data">
+                        <div class="col-12 col-lg-7 col-xl-9">
+                            <div class="py-2 px-4 border-bottom d-lg-block">
+                                <div class="d-flex align-items-center py-1">
+                                    <div class="flex-grow-1 pl-3"> 
+                                        <h5><strong class="text-blue">@dialog?.Users.FirstOrDefault(u =>u.id != @HttpContextAccessor.HttpContext.Session.GetInt32("id")).login</strong></h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="position-relative" >
+                                <div class="chat-messages p-4 messages-block" id="messageblock">
+                                    @foreach (var message in Model.GetAllDialogsMessages)
+                                    {
+
+                                        @if (message.usersid != @HttpContextAccessor.HttpContext.Session.GetInt32("id"))
+                                        {
+                                            <div class="d-flex justify-content-between mb-4">
+                                                <div class="card mask-custom min-width-250px bachground-gray">
+                                                    <div class="card-header h-47 d-flex justify-content-between p-3">
+                                                        <p class="fw-bold mb-0 text-black">@message.Users.login</p>
+                                                        <p class="text-black small mb-0"><i class="far fa-clock">
+                                                               </i>@Math.Ceiling(DateTime.Now.Subtract(Convert.ToDateTime(message.datetime)).TotalMinutes) минут назад</p>
+                                                    </div>
+                                                    <div class="card-body h-52">
+                                                        <p class="mb-0 text-black">@message.message</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="d-flex justify-content-end mb-4">
+                                                <div class="card mask-custom min-width-250px bg-messages">
+                                                    <div class="card-header h-47 d-flex justify-content-between p-3">
+                                                        <p class="fw-bold mb-0 text-white">Вы</p>
+                                                        <p class="text-light small mb-0 text-white"><i class="far fa-clock">
+                                                                </i>@Math.Ceiling(DateTime.Now.Subtract(Convert.ToDateTime(message.datetime)).TotalMinutes) минут назад</p>
+                                                    </div>
+                                                    <div class="card-body h-52">
+                                                        <p class="mb-0 text-white">@message.message</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                            <div class="flex-grow-0 py-3 px-4 border-top">
+                                <div class="input-group">
+                                    <input type="text"  required class="form-control" name="message">
+                                    <button type="submit" class="btn btn-primary" asp-route-dialogid="@dialog.id">Отправить</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+        </div>
+    
+}
+<script type="text/javascript">
+  var block = document.getElementById("messageblock");
+  block.scrollTop = block.scrollHeight;
+</script>

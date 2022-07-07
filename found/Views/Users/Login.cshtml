@@ -1,0 +1,49 @@
+﻿@using found.Data.Models
+@model Authorize
+<div class="main-background">
+<div class="container mt-5">
+    
+    <div class="row">
+        <div class="col">
+        </div>
+
+        <div class="col">
+            <h1 class="margin-left-40px mt-4 text-blue">Авторизация</h1>
+            <div class="login-custom-div mt-4">
+                <div class="container-fluid text-center mt-2">
+                    <div class="row">
+                        
+
+                            <form method="post" asp-controller="Users" asp-action="Login">
+                                <div class="form-group">
+                                    <label class="text-center text-white mt-2"><strong>Логин</strong></label>
+                                    <input asp-for="login" type="text" class="form-control mt-2 corner-radius-15px">
+                                    <span asp-validation-for="login" class="text-danger field-validation-valid" data-valmsg-replace="true"></span>
+
+                                </div>
+
+                                <div class="form-group mt-3">
+                                    <label class="text-center text-white"><strong>Пароль</strong></label>
+                                    <input asp-for="password" class="form-control mt-2 corner-radius-15px" type="password">
+                                    <span asp-validation-for="password" class="text-danger field-validation-valid" data-valmsg-replace="true"></span>
+
+                                </div>
+                                <input class="btn btn-outline-light mt-5 corner-radius-15px" type="submit" value="Подтвердить" />
+                            </form>
+                            <div class="form-group mt-5">
+                                <p>
+                                    <a class="text-white" id="forgot-password" href="/Identity/Account/ForgotPassword">Забыли пароль?</a>
+                                </p>
+                                <p>
+                                    <a class="text-white" href="Views/Users/Register?returnUrl=%2F">Регистрация</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="col">
+        </div>
+    </div>
+</div>
+    </div>

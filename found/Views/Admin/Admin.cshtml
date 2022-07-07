@@ -1,0 +1,25 @@
+﻿@model AdminVM
+    <div class="container mt-5">
+        <main role="main" class="pb-3">
+            <h1 class="text-blue">Заявки</h1>
+            <hr>
+            <div class="row mt-4 mb-2">
+                @{
+                    foreach (var advert in Model.GetUnApprovedAdv)
+                    {
+                                <div class="col-lg-3 mt-2 text-center">
+                                    <img class="img-fluid img-adverts img-center" src="@advert.img" alt="@advert.desc_short" />
+                                    <h3 class="text-blue">@advert.desc_short</h3>
+                                    <p class="text-blue">Найдено: @advert.location в @advert.time</p>
+                                    <p class="text-blue">Описание: @advert.desc_long</p>
+                                    <p class="text-blue">Автор: @advert.Users.login</p>
+                                    <input class="btn btn-outline-success corner-radius-15px width-120px" type="submit" asp-route-id="@advert.id" value="Подтвердить" />
+                                    <p><a class="btn btn-outline-danger corner-radius-15px mt-1 width-120px" asp-controller="Admin" asp-action="Decline" asp-route-id="@advert.id">Отклонить</a></p>
+                                    
+                                </div>
+                    }
+                }
+
+            </div>
+        </main>
+    </div>

@@ -1,0 +1,50 @@
+﻿@using found.ViewModels
+@model ProfileVM
+@{ var editingAdv = Model.GetAdvert;
+
+    <form asp-controller="Profile" asp-action="AdvertUpdate" method="post" class="form-horizontal">
+        <div class="container mt-5" width="100%">
+            <h2 class="text-blue">Редактирование</h2>
+            <hr>
+            <div class="row mt-5">
+                <div class="col-sm-4">
+                    <h5 class="text-blue">Название</h5>
+                    <p class="mt-2 text-dicribtion text-blue">Название найденного предмета. Не слишком коротное, но и не слишком большое<p>
+                        <h5 class="mt-5 text-blue">Место находки</h5>
+                    <p class="mt-2 text-dicribtion text-blue">Если вещь была найдена на улице, укажите ближайшее здание<p>
+                        <h5 class="mt-5 text-blue">Время находки</h5>
+                    <p class="mt-2 text-dicribtion text-blue">Указание точно времени не требуется<p>
+                        <h5 class="mt-5 text-blue">Описание</h5>
+                    <p class="mt-2 text-dicribtion text-blue">Подробное описание предмета, ситуации и тд.<p>
+                        <h5 class="mt-5 text-blue">Статус</h5>
+                    <p class="mt-2 text-dicribtion text-blue">Отвечает за то, будет ли объявление отображаться у других пользователей<p>
+                </div>
+                <div class="col-sm-8">
+                    <input value="@editingAdv.desc_short" name="newDesc_short" class="input-parametrs corner-radius-5px input-padding"><br>
+                    <span class="text-danger field-validation-valid" data-valmsg-replace="true"></span>
+                    <input value="@editingAdv.location" name="newLocation" class="input-parametrs mt-50px corner-radius-5px input-padding"><br>
+                    <span class="text-danger field-validation-valid" data-valmsg-replace="true"></span>
+                    <input value="@editingAdv.time" name="newTime" type="time" class="input-parametrs mt-10px corner-radius-5px input-padding"><br>
+                    <span class="text-danger field-validation-valid" data-valmsg-replace="true"></span>
+                    <textarea name="newDesc_long" rows="3" type="text" class="input-parametrs mt-10px disc-width corner-radius-5px input-padding">@editingAdv.desc_long</textarea><br>
+                    <span class="text-danger field-validation-valid" data-valmsg-replace="true"></span>
+                    @if (editingAdv.isActive == true)
+                    {
+                        <div class="form-check form-switch mt-42px">
+                            <input class="form-check-input" type="checkbox" name="newActivity" id="flexSwitchCheckDefault" checked>
+                            <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-check form-switch mt-42px">
+                            <input class="form-check-input" type="checkbox" name="newActivity" id="flexSwitchCheckDefault">
+                            <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+                        </div>
+                    }
+                </div>
+            </div>
+            <input class="btn btn-outline-primary background-blue text-white corner-radius-5px mt-4" type="submit" asp-route-Id="@editingAdv.id" value="Обновить" />
+        </div>
+        </form>
+    }

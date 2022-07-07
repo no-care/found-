@@ -1,0 +1,19 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+<ul class="navbar-nav flex-grow-1">
+    @if (@HttpContextAccessor.HttpContext.Session.GetInt32("roleid") == 1)
+    {
+        <li class="nav-item">
+            <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Adverts">Все объявления</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" asp-area="" asp-controller="Advert" asp-action="NewAdvert">Добавить объявление</a>
+        </li>
+    }
+    else if (@HttpContextAccessor.HttpContext.Session.GetInt32("roleid") == 2)
+    {
+        <li class="nav-item">
+            <a class="nav-link active" asp-area="" asp-controller="Admin" asp-action="Admin">Заявки</a>
+        </li>
+    }
+</ul>

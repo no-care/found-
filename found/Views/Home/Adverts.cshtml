@@ -1,0 +1,26 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+@model AdvLVModel
+    <div class="container mt-5">
+        <main role="main" class="pb-3">
+            <h1 class="text-blue">Объявления</h1>
+            <hr>
+            <div class="row mt-4 mb-2">
+                @{
+                    foreach (var advert in Model.allAdv)
+                    {
+                        if (advert.Usersid != @HttpContextAccessor.HttpContext.Session.GetInt32("id"))
+                        {
+                            <div class="col-lg-3 mt-2 text-center">
+                                <img class="img-fluid img-adverts img-center" src="@advert.img" alt="@advert.desc_short" />
+                                <h3 class="text-blue">@advert.desc_short</h3>
+                                <p class="text-blue">Найдено: @advert.location в @advert.time</p>
+                                <p class="text-blue">Автор: @advert.Users.login</p>
+                                <p><a class="btn btn-outline-primary background-blue text-white corner-radius-15px" asp-controller="Advert" asp-action="CurrAdvert" asp-route-Id="@advert.id">Подробнее</a></p>
+                            </div>
+                        }
+                    }
+                }
+            </div>
+        </main>
+        </div>

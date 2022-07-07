@@ -1,0 +1,54 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using System.Threading;
+@inject IHttpContextAccessor HttpContextAccessor
+@model DialogsVM
+<section class="mt-3">
+    <div class="container py-5 dialogs-container-width">
+
+        <div class="">
+
+            <h4 class="font-weight-bold mb-3 text-center text-blue">Диалоги</h4>
+            @{
+                foreach (var Dialogs in Model.GetAllUsersDialogs)
+                {
+
+                    <div class="card mask-custom background-blue mt-1">
+                        <div class="card-body cardbody">
+
+                            <ul class="list-unstyled mb-0">
+
+                                <li class="p-2 border-bottom" style="border-bottom: 1px solid rgba(255,255,255,.3) !important; cursor:pointer" onclick="ToMessagesLink(@Dialogs.id)">
+                                    <a href="#!" class="d-flex justify-content-between link-light">
+                                        <div class="d-flex flex-row">
+                                            <div class="pt-1">
+                                                <p class="fw-bold mb-0">@Dialogs?.Users.FirstOrDefault(p => p.id != @HttpContextAccessor.HttpContext.Session.GetInt32("id")).login</p>
+                                                @{ var test = Dialogs.Messages.Where(u => u.dialogsid == Dialogs.id).LastOrDefault();
+                                                    if (test != null)
+                                                    {
+                                                     <p class="small text-white">@Dialogs?.Messages.LastOrDefault(p => p.dialogsid == Dialogs.id).message</p>
+                                                    }
+                                                    else { }
+                                                }
+                                                        </div>
+                                                    </div>
+                                                @{ if (test != null)
+                                                    {
+                                                        string time = Dialogs?.Messages.LastOrDefault(p => p.dialogsid == Dialogs.id).datetime;
+                                                     <div class="pt-1">
+                                                        <p class="small text-white mb-1 Margin-right-15px">@Math.Ceiling(DateTime.Now.Subtract(Convert.ToDateTime(time)).TotalMinutes) минут назад</p>
+                                                     </div>
+                                                    }
+                                                    else { }
+                                                 }
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</section>
+

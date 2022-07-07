@@ -1,0 +1,33 @@
+﻿@using found.Data.Models
+@model Advert
+<form asp-controller="Advert" asp-action="NewAdvert" method="post" enctype="multipart/form-data" class="form-horizontal">
+    <div class="container mt-5" width="100%">
+        <h2 class="text-blue">Новое объявление</h2>
+        <hr>
+        <div class="row mt-5">
+            <div class="col-sm-4">
+                <h5 class="text-blue">Название</h5>
+                <p class="mt-2 text-dicribtion text-blue">Название найденного предмета. Не слишком коротное, но и не слишком большое<p>
+                    <h5 class="mt-5 text-blue">Место находки</h5>
+                <p class="mt-2 text-dicribtion text-blue">Если вещь была найдена на улице, укажите ближайшее здание<p>
+                    <h5 class="mt-5 text-blue">Время находки</h5>
+                <p class="mt-2 text-dicribtion text-blue">Указание точно времени не требуется<p>
+                    <h5 class="mt-5 text-blue">Описание</h5>
+                <p class="mt-2 text-dicribtion text-blue">Подробное описание предмета, ситуации и тд.<p>
+            </div>
+            <div class="col-sm-8">
+                <input asp-for="desc_short" class="input-parametrs corner-radius-5px input-padding" placeholder="Название предмета" /><br>
+                <span asp-validation-for="desc_short" class="text-danger "></span>
+                <input asp-for="location" class="input-parametrs mt-50px corner-radius-5px input-padding" placeholder="№ + здание" /><br>
+                <span asp-validation-for="location" class="text-danger"></span>
+                <input asp-for="time" type="time" class="input-parametrs mt-10px corner-radius-5px input-padding" placeholder="Время находки" /><br>
+                <span asp-validation-for="time" class="text-danger"></span>
+                <textarea asp-for="desc_long" class="input-parametrs mt-10px disc-width corner-radius-5px input-padding" rows="3" placeholder="Описание"></textarea><br>
+                <span asp-validation-for="time" class="text-danger"></span>
+            </div>
+
+        </div>
+        <input class="mt-2 corner-radius-5px" name="uploadedImg" type="file" /><br>
+        <input class="btn btn-outline-primary background-blue text-white corner-radius-5px mt-4" type="submit" value="Добавить" />
+    </div>
+</form>
